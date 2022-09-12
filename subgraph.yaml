@@ -1,0 +1,30 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: GalxePassport
+    network: bsc
+    source:
+      address: "0xe84050261cb0a35982ea0f6f3d9dff4b8ed3c012"
+      abi: GalxePassport
+      startBlock: 21257482
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/passport.ts
+      entities:
+        - Passport
+      abis:
+        - name: GalxePassport
+          file: ./abis/GalxePassport.json
+      eventHandlers:
+        - event: Mint(indexed address,uint256,uint64,uint32)
+          handler: handleMint
+        - event: Revoke(indexed address,uint256)
+          handler: handleRevoke
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
+        - event: EventPassportStatusUpdated(uint256,uint32)
+          handler: handleStatusUpdated

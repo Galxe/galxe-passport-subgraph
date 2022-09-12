@@ -1,0 +1,12 @@
+enum IssueStatus {
+  Valid
+  Burned
+  Revoked
+}
+
+type Passport @entity {
+  id: ID!
+  issueStatus: IssueStatus!
+  status: Int!
+  owner: Bytes!
+}
